@@ -2,6 +2,8 @@ package com.rex.td_http.base;
 
 import android.content.Context;
 
+import com.rex.td_http.proxy.ActivityManager;
+import com.rex.td_http.proxy.HttpAction;
 import com.rex.td_http.proxy.HttpProxy;
 import com.rex.td_http.proxy.ParserProxy;
 
@@ -13,7 +15,6 @@ public class Td {
     public static void init(Context aContext){
         Context mAppContext = aContext.getApplicationContext();
         HttpProxy.getQueue(mAppContext);
-
     }
     /**
      * 获得解析json字符串相关的代理者
@@ -32,4 +33,12 @@ public class Td {
         return HttpProxy.getInstance();
     }
 
+    /**
+     * 获得activity管理者
+     *
+     * @return activity管理者代理对象
+     */
+    public static ActivityManager getActyProxy() {
+        return ActivityManager.getInstance();
+    }
 }
