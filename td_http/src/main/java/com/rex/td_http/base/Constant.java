@@ -1,4 +1,4 @@
-package com.rex.td_http.utils;
+package com.rex.td_http.base;
 
 /**
  * Created by CysionLiu on 2017/4/7.

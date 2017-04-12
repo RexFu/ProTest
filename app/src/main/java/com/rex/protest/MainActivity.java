@@ -5,10 +5,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.rex.td_http.base.Td;
-import com.rex.td_http.listener.Callback;
-import com.rex.td_http.proxy.HttpUtils;
+import com.rex.td_http.MvcPointer;
+import com.rex.td_http.RetrofitProxy;
+import com.rex.td_http.base.DataState;
+import com.rex.td_http.base.GetAction;
+import com.rex.td_http.base.HttpUtils;
+import com.rex.td_http.base.TActionListener;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -20,10 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Td.init(this);
+        MvcPointer.init(this, true, RetrofitProxy.getInstance(this));
         mGet=(Button) findViewById(R.id.btn_get);
         mPost=(Button) findViewById(R.id.btn_post);
-
+        mGet.setOnClickListener(this);
+        mPost.setOnClickListener(this);
     }
 
     @Override
@@ -39,25 +44,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void postData() {
-    }
 
-    public void  getData() {
-               HttpUtils
+    private void postData() {
+        Map<String, String> aParams=new HashMap<>();
+        HttpUtils
                 .get()
                 .setUrl("http://apis.juhe.cn/goodbook/catalog")
-                .taskId(0xf001).setParms("","").setParms("","")
-                .build()
-                .execute(new Callback() {
+                .params(aParams)
+                .taskId(0xf001)
+                .build(DataState.CACHE_FIRST)
+                .execute(new TActionListener() {
             @Override
-            public void onSuccess(Object obj, int taskId) {
+            public void onSuccess(Object obj, long taskId) {
 
             }
 
             @Override
-            public void onFailure(Object obj, int taskId) {
+            public void onFailure(Object obj, long taskId) {
 
             }
         });
+
+    }
+
+    public void  getData() {
+//               HttpUtils
+//                .GetAction()
+//                .setUrl("http://apis.juhe.cn/goodbook/catalog")
+//                .taskId(0xf001).setParms("","").setParms("","")
+//                .build()
+//                .execute(new Callback() {
+//            @Override
+//            public void onSuccess(Object obj, int taskId) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Object obj, int taskId) {
+//
+//            }
+//        });
     }
 }

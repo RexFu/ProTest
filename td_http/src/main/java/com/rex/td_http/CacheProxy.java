@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.rex.td_http.proxy;
+package com.rex.td_http;
 
 import android.content.Context;
 import android.graphics.Bitmap;
