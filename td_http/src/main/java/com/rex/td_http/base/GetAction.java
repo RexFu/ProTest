@@ -1,9 +1,7 @@
 package com.rex.td_http.base;
-
-import android.util.Log;
-
 /**
- * Created by Administrator on 2017/4/12.
+ * Created by Rex.wang on 2017/4/8
+ * E-mail:WWF1116@163.com
  */
 
 public class GetAction extends MvcAction {

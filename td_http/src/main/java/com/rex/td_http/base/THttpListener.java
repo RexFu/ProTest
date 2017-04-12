@@ -1,8 +1,8 @@
 package com.rex.td_http.base;
 
 /**
- * Created by CysionLiu on 2017/4/7.
- * to GetAction light and fluent data from net request
+ * Created by Rex.wang on 2017/4/12
+ * E-mail:WWF1116@163.com
  */
 public interface THttpListener {
 

@@ -46,9 +46,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-
 /**
- * Created by CysionLiu on 2017/4/7.
+ * Created by Rex.wang on 2017/4/12
+ * E-mail:WWF1116@163.com
  */
 public class CacheProxy {
     public static final int TIME_HOUR = 60 * 60;

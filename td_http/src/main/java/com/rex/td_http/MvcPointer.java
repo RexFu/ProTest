@@ -14,8 +14,8 @@ public class MvcPointer {
     private static HttpProxy mHttpProxy;
 
     /**
-     * Init.
-     * @param aContext the a context
+     * Created by Rex.wang on 2017/4/12
+     * E-mail:WWF1116@163.com
      */
     public static void init(Context aContext, boolean aIsDebug, HttpProxy aHttpProxy) {
         if (aContext == null) {

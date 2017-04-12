@@ -14,7 +14,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by CysionLiu on 2017/4/7.
+ * Created by Rex.wang on 2017/4/12
+ * E-mail:WWF1116@163.com
  * 数据操作的父类，集中了数据网络请求，数据缓存等操作
  * 使用方式，例如child继承该类，则
  * new child(listener).params(pas).taskid(id).execute(code);

@@ -1,20 +1,19 @@
 package com.rex.protest;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import com.rex.td_http.MvcPointer;
 import com.rex.td_http.RetrofitProxy;
 import com.rex.td_http.base.DataState;
-import com.rex.td_http.base.GetAction;
 import com.rex.td_http.base.HttpUtils;
 import com.rex.td_http.base.TActionListener;
-
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Created by Rex.wang on 2017/4/12
+ * E-mail:WWF1116@163.com
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button mGet;

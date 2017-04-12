@@ -11,7 +11,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 /**
- * Created by CysionLiu on 2017/4/7.
+ * Created by Rex.wang on 2017/4/12
+ * E-mail:WWF1116@163.com
  */
 public class RetrofitProxy implements HttpProxy {
 

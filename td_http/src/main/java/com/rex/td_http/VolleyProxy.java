@@ -19,7 +19,8 @@ import java.util.Map;
 import static com.rex.td_http.MvcUtils.isGoodJson;
 
 /**
- * Created by CysionLiu on 2017/4/7..
+ * Created by Rex.wang on 2017/4/12
+ * E-mail:WWF1116@163.com
  * 频繁网络交互的代理者，目前基于volley
  * get和post方法，还包括加入header的情况
  */
