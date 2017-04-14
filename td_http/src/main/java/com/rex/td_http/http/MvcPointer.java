@@ -1,9 +1,9 @@
-package com.rex.td_http;
+package com.rex.td_http.http;
 
 import android.content.Context;
 
-import com.rex.td_http.base.HttpProxy;
-import com.rex.td_http.base.MvcAction;
+import com.rex.td_http.action.TbAction;
+import com.rex.td_http.listener.HttpProxy;
 
 /**
  * Created by CysionLiu on 2017/4/7.
@@ -26,10 +26,11 @@ public class MvcPointer {
             }
         }
         mContext = aContext.getApplicationContext();
-        MvcAction.initAction(mContext, aIsDebug);
+        TbAction.initAction(mContext, aIsDebug);
         mHttpProxy = aHttpProxy;
         if (mHttpProxy == null || aContext == null) {
-            mHttpProxy = RetrofitProxy.getInstance(mContext);
+//            mHttpProxy = RetrofitProxy.getInstance(mContext);
+            mHttpProxy=VolleyProxy.getInstance(mContext);
         }
     }
 

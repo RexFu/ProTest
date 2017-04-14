@@ -1,9 +1,11 @@
-package com.rex.td_http;
+package com.rex.td_http.http;
 import android.content.Context;
-import com.rex.td_http.base.Constant;
-import com.rex.td_http.base.HttpProxy;
-import com.rex.td_http.base.PreCall;
-import com.rex.td_http.base.THttpListener;
+
+import com.rex.td_http.util.MvcUtils;
+import com.rex.td_http.config.Constant;
+import com.rex.td_http.listener.HttpProxy;
+import com.rex.td_http.listener.PreCall;
+import com.rex.td_http.listener.THttpListener;
 import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;

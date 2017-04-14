@@ -1,12 +1,15 @@
-package com.rex.td_http.base;
+package com.rex.td_http.action;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.rex.td_http.CacheProxy;
-import com.rex.td_http.MvcPointer;
-import com.rex.td_http.MvcUtils;
+import com.rex.td_http.http.CacheProxy;
+import com.rex.td_http.http.MvcPointer;
+import com.rex.td_http.util.MvcUtils;
+import com.rex.td_http.config.Constant;
+import com.rex.td_http.config.DataState;
+import com.rex.td_http.listener.THttpListener;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,8 +26,8 @@ import java.util.Set;
  * 比如固定参数fixedParams()的方法，特殊情况处理网络返回的数据handleDataFromNet
  * 等
  */
-public abstract class MvcAction {
-    private static final String TAG = "MvcAction";
+public abstract class  TbAction extends TaBuild{
+    private static final String TAG = "TbAction";
     protected static Context mContext;
     //请求网络的方法
     protected static final int Method_GET = 0;
@@ -33,9 +36,7 @@ public abstract class MvcAction {
     private String url;//你懂得
     protected DataState mActionCode;//数据操作码
     protected int mReqMethod;//请求网络的方式
-    private long taskId = -1;//请求行为的id
     protected Map<String, String> params;//请求网络的参数
-    protected TActionListener listener;//结果回调
     private String key;
     protected static Map<String, String> mHeader;
     /**
@@ -50,40 +51,25 @@ public abstract class MvcAction {
             setDebug();
         }
     }
-
-    public long getTaskId() {
-        return taskId;
-    }
-
-    /*给post请求设置参数 */
-    public MvcAction params(Map<String, String> aParams) {
-        params = aParams;
-        return this;
-    }
     //设置调试模式
     public static void setDebug() {
         DEBUG = true;
     }
 
-    /*给请求设置任务id */
-    public MvcAction taskId(int id) {
-        taskId = id;
-        return this;
-    }
     //文件最大保存时间，默认长期存储，单位s
     protected int getKeepTime(){
         return Integer.MAX_VALUE;
     }
-
     /**
      * 执行方法，包括相关校验，各种数据请求方式的处理
      *
      * @param actionCode 数据操作码
      */
-    public MvcAction build(DataState actionCode) {
+    public TbAction build(DataState actionCode) {
         if (mContext != null) {
             url = getUrl();
             mReqMethod = getHttpMethod();
+            params=getParms();
             mActionCode = DataState.NO_CACHE;
         } else {
             try {
@@ -114,16 +100,12 @@ public abstract class MvcAction {
     private void getKey() {
         params = getParams();
         String buffer = getAppearUrl(params);
-        logv("method--" + getHttpMethod() + "--url---" + buffer);
         try {
             key = MvcUtils.MD5encrypt(buffer.toString(), "utf-8");
         } catch (Exception aE) {
             aE.printStackTrace();
         }
     }
-    public void execute(TActionListener mListener){
-    this.listener=mListener;
-    };
     private void checkUrlAndId() {
         if (TextUtils.isEmpty(url) || taskId == -1) {
             try {
@@ -133,7 +115,6 @@ public abstract class MvcAction {
             }
         }
     }
-
     private void checkActionCode() {
         DataState[] values = DataState.values();
         if (!Arrays.asList(values).contains(mActionCode)) {
@@ -144,8 +125,6 @@ public abstract class MvcAction {
             }
         }
     }
-
-
     private Map<String, String> getParams() {
         if (params != null) {
             return params;
@@ -204,12 +183,20 @@ public abstract class MvcAction {
             if (params.size() > 0) {
                 url = getAppearUrl(params);
             }
+            Log.e("flag--","TbAction--byHttp--187--"+url);
             MvcPointer.getHttpProxy().getData(url, callBack, getParams(), getHeader(), taskId);
         } else if(mReqMethod == Method_POST){
-            Log.e("flag--","MvcAction--byHttp--209--"+url);
+
             MvcPointer.getHttpProxy().postData(url, callBack, getParams(), getHeader(), taskId);
         }
-        //测试用，打印输出header内容
+        //测试用，打印输出header内容,url,和taskid，参数内容
+        logv("taskid--"+":"+taskId);
+        logv("url--"+":"+url);
+        Map<String, String> tempParams = getParams();
+        for (Map.Entry entry : tempParams.entrySet()) {
+            Object key = entry.getKey( );
+            logv("params--"+key+":"+entry.getValue());
+        }
         Map<String,String> tempHeader = getHeader();
         for (Map.Entry entry : tempHeader.entrySet()) {
             Object key = entry.getKey( );
@@ -236,6 +223,7 @@ public abstract class MvcAction {
             Log.v(TAG, lable);
         }
     }
+
 
     private String readCache(long aTaskId) {
         if (mActionCode == DataState.NO_CACHE) {
@@ -299,8 +287,8 @@ public abstract class MvcAction {
     };
 
     protected abstract String getUrl();
-
     protected abstract int getHttpMethod();
+    protected  abstract Map<String, String> getParms();
 
     /**
      * 判断网络返回的数据是否有目标数据， 对应于不同taskid数据有不同的处理

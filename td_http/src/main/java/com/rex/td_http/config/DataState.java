@@ -1,4 +1,4 @@
-package com.rex.td_http.base;
+package com.rex.td_http.config;
 
 /**
  * Created by Rex.wang on 2016/4/7

@@ -1,4 +1,4 @@
-package com.rex.td_http;
+package com.rex.td_http.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

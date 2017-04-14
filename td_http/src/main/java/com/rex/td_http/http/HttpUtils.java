@@ -1,4 +1,7 @@
-package com.rex.td_http.base;
+package com.rex.td_http.http;
+
+import com.rex.td_http.action.GetAction;
+import com.rex.td_http.action.PostAction;
 
 /**
  * Created by Rex.wang on 2017/4/12

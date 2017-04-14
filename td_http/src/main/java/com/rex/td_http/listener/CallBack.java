@@ -1,9 +1,9 @@
-package com.rex.td_http.base;
+package com.rex.td_http.listener;
 /**
  * Created by Rex.wang on 2017/4/12
  * E-mail:WWF1116@163.com
  */
-public interface TActionListener {
+public interface CallBack {
 
     /**
      * 成功获得结果返回，注意，此结果代表本次请求最希望的数据，即目标数据

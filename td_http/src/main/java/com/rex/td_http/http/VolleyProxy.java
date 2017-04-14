@@ -1,4 +1,4 @@
-package com.rex.td_http;
+package com.rex.td_http.http;
 
 
 import android.content.Context;
@@ -10,13 +10,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.rex.td_http.base.Constant;
-import com.rex.td_http.base.HttpProxy;
-import com.rex.td_http.base.THttpListener;
+import com.rex.td_http.config.Constant;
+import com.rex.td_http.listener.HttpProxy;
+import com.rex.td_http.listener.THttpListener;
 
 import java.util.Map;
 
-import static com.rex.td_http.MvcUtils.isGoodJson;
+import static com.rex.td_http.util.MvcUtils.isGoodJson;
 
 /**
  * Created by Rex.wang on 2017/4/12

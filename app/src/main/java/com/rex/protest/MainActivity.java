@@ -3,11 +3,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import com.rex.td_http.MvcPointer;
-import com.rex.td_http.RetrofitProxy;
-import com.rex.td_http.base.DataState;
-import com.rex.td_http.base.HttpUtils;
-import com.rex.td_http.base.TActionListener;
+import android.widget.TextView;
+import com.rex.td_http.http.MvcPointer;
+import com.rex.td_http.http.RetrofitProxy;
+import com.rex.td_http.config.DataState;
+import com.rex.td_http.http.HttpUtils;
+import com.rex.td_http.listener.CallBack;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -18,16 +19,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button mGet;
     private Button mPost;
+    private TextView mText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MvcPointer.init(this, true, RetrofitProxy.getInstance(this));
+        mText=(TextView) findViewById(R.id.tv);
         mGet=(Button) findViewById(R.id.btn_get);
         mPost=(Button) findViewById(R.id.btn_post);
         mGet.setOnClickListener(this);
         mPost.setOnClickListener(this);
+
     }
 
     @Override
@@ -45,43 +49,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void postData() {
-        Map<String, String> aParams=new HashMap<>();
-        HttpUtils
-                .get()
-                .setUrl("http://apis.juhe.cn/goodbook/catalog")
-                .params(aParams)
-                .taskId(0xf001)
-                .build(DataState.CACHE_FIRST)
-                .execute(new TActionListener() {
-            @Override
-            public void onSuccess(Object obj, long taskId) {
+                Map<String, String> aParams=new HashMap<>();
+        aParams.put("scope","103");
+        aParams.put("format","json");
+        aParams.put("appid","379020");
+        aParams.put("bk_key","银魂");
+        aParams.put("bk_length","600");
+          HttpUtils.post().setUrl("http://baike.baidu.com/api/openapi/BaikeLemmaCardApi").params(aParams).execute(new CallBack() {
+              @Override
+              public void onSuccess(Object obj, long taskId) {
 
-            }
+              }
 
-            @Override
-            public void onFailure(Object obj, long taskId) {
+              @Override
+              public void onFailure(Object obj, long taskId) {
 
-            }
-        });
-
+              }
+          }).build(DataState.NET_FIRST);
     }
 
     public void  getData() {
-//               HttpUtils
-//                .GetAction()
-//                .setUrl("http://apis.juhe.cn/goodbook/catalog")
-//                .taskId(0xf001).setParms("","").setParms("","")
-//                .build()
-//                .execute(new Callback() {
-//            @Override
-//            public void onSuccess(Object obj, int taskId) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Object obj, int taskId) {
-//
-//            }
-//        });
+        Map<String, String> aParams=new HashMap<>();
+        aParams.put("scope","103");
+        aParams.put("format","json");
+        aParams.put("appid","379020");
+        aParams.put("bk_key","银魂");
+        aParams.put("bk_length","600");
+        HttpUtils
+                .get()
+                .setUrl("http://baike.baidu.com/api/openapi/BaikeLemmaCardApi")
+                .params(aParams)
+                .taskId(0xf001)
+                .execute(new CallBack() {
+                    @Override
+                    public void onSuccess(Object obj, long taskId) {
+                        mText.setText(obj.toString());
+                    }
+
+                    @Override
+                    public void onFailure(Object obj, long taskId) {
+
+                    }
+                }) .build(DataState.NO_CACHE);
+
+
     }
 }
